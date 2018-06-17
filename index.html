@@ -1,0 +1,101 @@
+<html>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120933124-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120933124-1');
+</script>
+
+    <title>WORLDCUP WITHOUT POPUPS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Description" CONTENT="worldcup without popups">    
+    <meta property="og:url" content="http://botako.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="worldcup without popups" />
+    <meta property="og:description" content="worldcup without popups" />    
+    <style>
+        .main {
+            width: 100%;
+        }
+
+        .footer{            
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body style='padding:0'>
+    <h1>GAME: <span id='game'></span></h1>
+    <div id="fb-root"></div>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.async=true;
+      js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+  <!-- Your like button code -->
+  <div class="fb-like" data-href="http://botako.com" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>            
+    <h3>
+        <a id='refresh' href='/'>Refresh</a>
+    </h3>
+    <div class='topbar'>
+        <h2>Pick a source</h2>
+        <select id='sources'>
+        </select>
+    </div>
+    <br/>
+    <div class='main'>
+        <iframe id='mainvid' sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation" style="width:100%; height:100%;" id="ifplayer" allowfullscreen="true" frameborder="0" scrolling="no" 
+        src=""></iframe>
+    </div>
+    <br/>
+    <div class='footer'>
+        Created by J WATANABE for 2018 WORLD CUP
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var sources = [
+            {
+                "url": "http://sportzonline.pw/channels/hd/hd1.html",
+                "name": "sportzonline"
+            }
+        ];
+        $(function() {
+            var $game = $('#game');
+            var $sources = $('#sources');
+            var $mainvid = $('#mainvid');
+            
+            $.ajax({
+                method: 'GET',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: 'https://gist.githubusercontent.com/botako/050300c01ca4b0eedc4f3077ac1e13ae/raw/b511256332b0baacf2f20a51b1698261fe2d8571/games.json',
+                success: function(data) {
+                    var options = [];
+                    $game.html(data.game);
+                    for (var i=0; i<data.sources.length; i++){
+                        var source = data.sources[i];
+                        if (i===0) {
+                            $mainvid.attr('src', source.url);
+                        }
+                        options.push('<option value="'+ source.url +'">'+ source.name +'</option>');
+                    }
+
+                    $sources.html(options.join(""));
+                }
+            });
+            
+            $sources.on('change', function() {
+                $mainvid.attr('src', $sources.val());
+            });
+        });
+    </script>
+</body>
+</html>
