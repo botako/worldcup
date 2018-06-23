@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <style>
+            body {
+                height: 100%;
+                width: 100%;
+                padding: 0;
+            }
+            .mainvid {
+                height: 100%;
+                width: 100%;
+            }
+
+            .video-js {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+        <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class='mainvid'>
+            <video id='game' width='100%' height='100%' class="video-js vjs-default-skin" controls>
+            <source id='video-source'
+                src=""
+                type="application/x-mpegURL">
+            </video>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/video.js/dist/video.min.js"></script>
+        <script src="https://unpkg.com/videojs-flash/dist/videojs-flash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.min.js"></script>
+        <script>
+            $(function() {
+                var player = null;
+                var $id = $('#video-source');
+                $.get({
+                url: "https://gist.githubusercontent.com/botako/8515b60a58d792abbf38bf9ecddd4eaa/raw/vtv6.json",
+                success: function(d) {
+                    var data = JSON.parse(d);
+                    $id.attr('src', data.url);
+                    var player = videojs('game');
+                    player.play();
+                }
+            })
+
+            });
+        </script>        
+    </body>
+</html>
