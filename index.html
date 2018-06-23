@@ -68,7 +68,7 @@
         <p class='select-source'><b>Pick a source (chọn nguồn stream)
             <select id='sources'>
             </select>
-            &nbsp;&nbsp;<a id='refresh' href='/'>Refresh</a></b>
+            &nbsp;&nbsp;<a id='refresh'>Refresh</a></b>
             &nbsp;&nbsp;<i>(Anh em chọn nguồn vietnam1, english1 hoặc 4 để xem nét căng đét, nhớ chỉnh tốc độ tầm 2121kps)</i>
         </p>
         <p>If there is no sound, turn up the volume by pressing lower right button (Nếu không có tiếng vui lòng tăng âm lượng bằng ấn nút ở góc dưới bên phải màn hình)</p>
@@ -100,6 +100,7 @@
 
 
         $(function() {
+            var $refresh = $('#refresh');
             var $game = $('#game');
             var $sources = $('#sources');
             var $mainvid = $('#mainvid');
@@ -144,6 +145,10 @@
                 setTimeout(function(){
                     $mainvid.attr('src', $sources.val();
                 }, 50);
+            });
+
+            $refresh.on('click', function() {
+                $mainvid[0].contentWindow.location.reload();
             });
         });
     </script>
