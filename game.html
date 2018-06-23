@@ -32,13 +32,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.min.js"></script>
         <script>
             $(function() {
+                var quality = window.location.hash.substr(1) || "mid";
                 var player = null;
                 var $id = $('#video-source');
                 $.get({
                 url: "https://gist.githubusercontent.com/botako/8515b60a58d792abbf38bf9ecddd4eaa/raw/vtv6.json",
                 success: function(d) {
                     var data = JSON.parse(d);
-                    $id.attr('src', data.url);
+                    $id.attr('src', data[quality]);
                     var player = videojs('game');
                     player.play();
                 }
